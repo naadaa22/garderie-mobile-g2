@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../data/menus_data.dart';
+import '../models/menu.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,17 +9,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar 
       appBar: AppBar(
         title: const Text('Ma Garderie'),
         actions: [
-    
           IconButton(
             icon: const Icon(Icons.search),
             tooltip: 'Rechercher',
             onPressed: () {},
           ),
-          
           IconButton(
             icon: const Icon(Icons.notifications),
             tooltip: 'Notifications',
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
 
-      //Drawer
+  
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -37,19 +37,19 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            // Élément Accueil
+          
             ListTile(
               leading: const Icon(Icons.home),
               title: const Text('Accueil'),
               onTap: () {},
             ),
-            // Élément Menus
+           
             ListTile(
               leading: const Icon(Icons.restaurant_menu),
               title: const Text('Menus'),
               onTap: () {},
             ),
-            // Élément À propos
+         
             ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text('À propos'),
@@ -59,25 +59,51 @@ class HomePage extends StatelessWidget {
         ),
       ),
 
-      //Floating Action Button
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
 
-      // Corps 
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            // Titre de section
-            Text(
+          children: [
+          
+            const Text(
               'Menus du jour',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
-            Expanded(child: SizedBox()),
+            const SizedBox(height: 12),
+
+            
+            Expanded(
+              child: ListView.builder(
+                itemCount: menusDuJour.length,
+
+                itemBuilder: (context, index) {
+                  final Menu menu = menusDuJour[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    child: ListTile(
+                   
+                      leading: Text(
+                        menu.icone,
+                        style: const TextStyle(fontSize: 32),
+                      ),
+                      
+                      title: Text(
+                        menu.titre,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                  
+                      subtitle: Text(menu.description),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
